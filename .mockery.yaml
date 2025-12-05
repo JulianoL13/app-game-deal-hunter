@@ -1,0 +1,8 @@
+with-expecter: true
+dir: "{{.InterfaceDir}}/mocks"
+mockname: "Mock{{.InterfaceName}}"
+outpkg: "mocks"
+packages:
+  github.com/julianoL13/game-deal-hunter/game:
+    interfaces: 
+      Repository:
