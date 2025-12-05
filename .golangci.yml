@@ -1,0 +1,91 @@
+# golangci-lint configuration
+# https://golangci-lint.run/usage/configuration/
+
+run:
+  timeout: 5m
+  modules-download-mode: readonly
+
+output:
+  formats:
+    - format: colored-line-number
+  sort-results: true
+
+linters:
+  enable:
+    # Bugs
+    - govet # Reports suspicious constructs
+    - staticcheck # Advanced static analysis
+    - errcheck # Checks for unchecked errors
+    - bodyclose # Checks HTTP response body is closed
+    - nilerr # Finds code that returns nil even if it checks err != nil
+
+    # Performance
+    - prealloc # Finds slice declarations that could be preallocated
+    - ineffassign # Detects ineffectual assignments
+
+    # Style & Simplicity
+    - gosimple # Suggests code simplifications
+    - gocritic # Opinionated linter with many checks
+    - gofmt # Checks code is gofmt-ed
+    - goimports # Checks imports are sorted
+    - unused # Finds unused code
+
+    # Error Handling
+    - errorlint # Finds issues with error wrapping
+
+    # Security
+    - gosec # Security checks
+
+    # Code Quality
+    - misspell # Finds misspelled English words
+    - unconvert # Removes unnecessary type conversions
+    - unparam # Reports unused function parameters
+    - nakedret # Finds naked returns in long functions
+    - noctx # Finds HTTP requests without context.Context
+
+linters-settings:
+  govet:
+    enable-all: true
+    disable:
+      - fieldalignment # Too strict for most cases
+
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - style
+      - performance
+    disabled-checks:
+      - whyNoLint
+      - unnamedResult
+
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+
+  gosec:
+    excludes:
+      - G104 # Duplicates errcheck
+
+  nakedret:
+    max-func-lines: 30
+
+  goimports:
+    local-prefixes: github.com/julianoL13/app-game-deal-hunter
+
+issues:
+  exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+  exclude-rules:
+    # Ignore error checks in tests
+    - path: _test\.go
+      linters:
+        - errcheck
+        - gosec
+
+    # Ignore long lines in generated files
+    - path: mocks/
+      linters:
+        - gocritic
+        - gosec
