@@ -3,6 +3,10 @@ dir: "{{.InterfaceDir}}/mocks"
 mockname: "Mock{{.InterfaceName}}"
 outpkg: "mocks"
 packages:
-  github.com/julianoL13/game-deal-hunter/game:
-    interfaces: 
-      Repository:
+  github.com/julianoL13/app-game-deal-hunter/game:
+    interfaces:
+      Writer:
+  github.com/julianoL13/app-game-deal-hunter/offer:
+    interfaces:
+      Writer:
+      Reader:
