@@ -1,4 +1,4 @@
-module github.com/julianoL13/game-deal-hunter
+module github.com/julianoL13/app-game-deal-hunter
 
 go 1.25.4
 

@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/julianoL13/game-deal-hunter/game"
-	"github.com/julianoL13/game-deal-hunter/game/mocks"
+	"github.com/julianoL13/app-game-deal-hunter/game"
+	"github.com/julianoL13/app-game-deal-hunter/game/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

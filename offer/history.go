@@ -1,4 +1,4 @@
-package pricehistory
+package offer
 
 import (
 	"time"
@@ -14,7 +14,7 @@ type Record struct {
 	RecordedAt time.Time
 }
 
-func New(offerID uuid.UUID, amount int64, currency string) (*Record, error) {
+func NewHistory(offerID uuid.UUID, amount int64, currency string) (*Record, error) {
 	id, err := uuid.NewV7()
 	if err != nil {
 		return nil, err

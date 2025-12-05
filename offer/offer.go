@@ -24,7 +24,7 @@ type Offer struct {
 	UpdatedAt    time.Time
 }
 
-func New(gameID uuid.UUID, store Store, platform Platform, url string) (*Offer, error) {
+func NewOffer(gameID uuid.UUID, store Store, platform Platform, url string) (*Offer, error) {
 	if !store.IsValid() {
 		return nil, ErrInvalidStore
 	}
