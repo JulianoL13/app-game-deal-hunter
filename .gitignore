@@ -7,6 +7,7 @@
 
 # Test binary
 *.test
+coverage*
 
 # Output of the go coverage tool
 *.out
@@ -23,9 +24,6 @@ go.work
 # OS
 .DS_Store
 Thumbs.db
-
-# Mocks (generated)
-**/mocks/
 
 # Environment
 .env
