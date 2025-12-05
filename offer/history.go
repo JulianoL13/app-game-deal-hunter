@@ -9,12 +9,11 @@ import (
 type Record struct {
 	ID         uuid.UUID
 	OfferID    uuid.UUID
-	Amount     int64
-	Currency   string
+	Price      Price
 	RecordedAt time.Time
 }
 
-func NewHistory(offerID uuid.UUID, amount int64, currency string) (*Record, error) {
+func NewHistory(offerID uuid.UUID, price Price) (*Record, error) {
 	id, err := uuid.NewV7()
 	if err != nil {
 		return nil, err
@@ -23,8 +22,7 @@ func NewHistory(offerID uuid.UUID, amount int64, currency string) (*Record, erro
 	return &Record{
 		ID:         id,
 		OfferID:    offerID,
-		Amount:     amount,
-		Currency:   currency,
+		Price:      price,
 		RecordedAt: time.Now(),
 	}, nil
 }

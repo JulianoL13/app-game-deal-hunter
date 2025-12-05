@@ -1,5 +1,11 @@
 package offer
 
+import "errors"
+
+var (
+	ErrInvalidStore = errors.New("invalid store")
+)
+
 type Store string
 
 const (
@@ -11,6 +17,14 @@ const (
 	StoreGOG    Store = "gog"
 )
 
+func NewStore(s string) (Store, error) {
+	store := Store(s)
+	if !store.IsValid() {
+		return "", ErrInvalidStore
+	}
+	return store, nil
+}
+
 func (s Store) String() string {
 	return string(s)
 }
@@ -18,27 +32,6 @@ func (s Store) String() string {
 func (s Store) IsValid() bool {
 	switch s {
 	case StoreSteam, StoreNuuvem, StorePSN, StoreXbox, StoreEpic, StoreGOG:
-		return true
-	}
-	return false
-}
-
-type Platform string
-
-const (
-	PlatformPC          Platform = "pc"
-	PlatformPlayStation Platform = "playstation"
-	PlatformXbox        Platform = "xbox"
-	PlatformNintendo    Platform = "nintendo"
-)
-
-func (p Platform) String() string {
-	return string(p)
-}
-
-func (p Platform) IsValid() bool {
-	switch p {
-	case PlatformPC, PlatformPlayStation, PlatformXbox, PlatformNintendo:
 		return true
 	}
 	return false

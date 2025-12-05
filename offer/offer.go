@@ -2,37 +2,35 @@ package offer
 
 import (
 	"errors"
+	"net/url"
 	"time"
 
 	"github.com/google/uuid"
 )
 
 var (
-	ErrInvalidStore    = errors.New("invalid store")
-	ErrInvalidPlatform = errors.New("invalid platform")
-	ErrEmptyURL        = errors.New("offer URL cannot be empty")
+	ErrEmptyURL   = errors.New("offer URL cannot be empty")
+	ErrInvalidURL = errors.New("offer URL must be a valid HTTP/HTTPS URL")
 )
 
 type Offer struct {
 	ID           uuid.UUID
 	GameID       uuid.UUID
 	Store        Store
-	Platform     Platform
 	URL          string
 	CurrentPrice Price
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 }
 
-func NewOffer(gameID uuid.UUID, store Store, platform Platform, url string) (*Offer, error) {
-	if !store.IsValid() {
-		return nil, ErrInvalidStore
-	}
-	if !platform.IsValid() {
-		return nil, ErrInvalidPlatform
-	}
-	if url == "" {
+func NewOffer(gameID uuid.UUID, store Store, rawURL string) (*Offer, error) {
+	if rawURL == "" {
 		return nil, ErrEmptyURL
+	}
+
+	u, err := url.Parse(rawURL)
+	if err != nil || (u.Scheme != "http" && u.Scheme != "https") || u.Host == "" {
+		return nil, ErrInvalidURL
 	}
 
 	id, err := uuid.NewV7()
@@ -45,8 +43,7 @@ func NewOffer(gameID uuid.UUID, store Store, platform Platform, url string) (*Of
 		ID:        id,
 		GameID:    gameID,
 		Store:     store,
-		Platform:  platform,
-		URL:       url,
+		URL:       rawURL,
 		CreatedAt: now,
 		UpdatedAt: now,
 	}, nil

@@ -1,10 +1,10 @@
 package game
 
 import (
-"errors"
-"time"
+	"errors"
+	"time"
 
-"github.com/google/uuid"
+	"github.com/google/uuid"
 )
 
 var ErrEmptyTitle = errors.New("game title cannot be empty")
@@ -42,4 +42,3 @@ func New(title, description, developer, publisher string, releaseDate time.Time)
 		UpdatedAt:   now,
 	}, nil
 }
-
