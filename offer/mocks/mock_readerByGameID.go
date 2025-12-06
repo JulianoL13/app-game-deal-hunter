@@ -5,8 +5,9 @@ package mocks
 import (
 	context "context"
 
-	offer "github.com/julianoL13/app-game-deal-hunter/offer"
 	mock "github.com/stretchr/testify/mock"
+
+	offer "github.com/julianoL13/app-game-deal-hunter/offer"
 
 	uuid "github.com/google/uuid"
 )
