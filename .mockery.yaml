@@ -1,12 +1,18 @@
 with-expecter: true
-dir: "{{.InterfaceDir}}/mocks"
-mockname: "Mock{{.InterfaceName}}"
-outpkg: "mocks"
 packages:
   github.com/julianoL13/app-game-deal-hunter/game:
+    config:
+      dir: "{{.InterfaceDir}}/mocks"
+      outpkg: "mocks"
+      mockname: "Mock{{.InterfaceName}}"
     interfaces:
-      Writer:
+      writer:
   github.com/julianoL13/app-game-deal-hunter/offer:
+    config:
+      dir: "{{.InterfaceDir}}/mocks"
+      outpkg: "mocks"
+      mockname: "Mock{{.InterfaceName}}"
     interfaces:
-      Writer:
-      Reader:
+      writer:
+      readerByGameID:
+      readerByGameName:
