@@ -20,8 +20,8 @@ func TestCreateOffer(t *testing.T) {
 			"http://example.com/offer",
 		)
 
-		writer := new(mocks.MockWriter)
-		writer.On("Insert", ctx, o).Return(nil)
+		writer := new(mocks.Mockwriter)
+		writer.On("Save", ctx, o).Return(nil)
 		uc := offer.NewCreateOfferUseCase(writer)
 		err := uc.Execute(ctx, o)
 		assert.NoError(t, err)
@@ -35,8 +35,8 @@ func TestCreateOffer(t *testing.T) {
 		)
 
 		expectedErr := assert.AnError
-		writer := new(mocks.MockWriter)
-		writer.On("Insert", ctx, o).Return(expectedErr)
+		writer := new(mocks.Mockwriter)
+		writer.On("Save", ctx, o).Return(expectedErr)
 		uc := offer.NewCreateOfferUseCase(writer)
 		err := uc.Execute(ctx, o)
 		assert.Error(t, err)

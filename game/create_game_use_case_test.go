@@ -22,8 +22,8 @@ func TestCreateGame(t *testing.T) {
 			time.Now(),
 		)
 
-		writer := new(mocks.MockWriter)
-		writer.On("Insert", ctx, g).Return(nil)
+		writer := new(mocks.Mockwriter)
+		writer.On("Save", ctx, g).Return(nil)
 		uc := game.NewCreateGameUseCase(writer)
 		err := uc.Execute(ctx, g)
 		assert.NoError(t, err)
@@ -39,8 +39,8 @@ func TestCreateGame(t *testing.T) {
 		)
 
 		expectedErr := assert.AnError
-		writer := new(mocks.MockWriter)
-		writer.On("Insert", ctx, g).Return(expectedErr)
+		writer := new(mocks.Mockwriter)
+		writer.On("Save", ctx, g).Return(expectedErr)
 		uc := game.NewCreateGameUseCase(writer)
 		err := uc.Execute(ctx, g)
 		assert.Error(t, err)

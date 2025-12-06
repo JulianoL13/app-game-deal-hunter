@@ -15,22 +15,11 @@ func TestGetOffersByGameId(t *testing.T) {
 	ctx := context.Background()
 	t.Run("success", func(t *testing.T) {
 		gameID := uuid.New()
-		expectedOffers := []*offer.Offer{
-			{
-				ID:     uuid.New(),
-				GameID: gameID,
-				Store:  offer.StoreSteam,
-				URL:    "http://example.com/offer1",
-			},
-			{
-				ID:     uuid.New(),
-				GameID: gameID,
-				Store:  offer.StoreEpic,
-				URL:    "http://example.com/offer2",
-			},
-		}
+		offer1, _ := offer.NewOffer(gameID, offer.StoreSteam, "http://example.com/offer1")
+		offer2, _ := offer.NewOffer(gameID, offer.StoreEpic, "http://example.com/offer2")
+		expectedOffers := []*offer.Offer{offer1, offer2}
 
-		reader := new(mocks.MockReader)
+		reader := new(mocks.MockreaderByGameID)
 		reader.On("FindByGameID", ctx, gameID).Return(expectedOffers, nil)
 
 		uc := offer.NewGetOffersByGameIdUseCase(reader)
@@ -45,7 +34,7 @@ func TestGetOffersByGameId(t *testing.T) {
 		gameID := uuid.New()
 		expectedErr := assert.AnError
 
-		reader := new(mocks.MockReader)
+		reader := new(mocks.MockreaderByGameID)
 		reader.On("FindByGameID", ctx, gameID).Return(nil, expectedErr)
 
 		uc := offer.NewGetOffersByGameIdUseCase(reader)
@@ -61,7 +50,7 @@ func TestGetOffersByGameId(t *testing.T) {
 		gameID := uuid.New()
 		expectedOffers := []*offer.Offer{}
 
-		reader := new(mocks.MockReader)
+		reader := new(mocks.MockreaderByGameID)
 		reader.On("FindByGameID", ctx, gameID).Return(expectedOffers, nil)
 
 		uc := offer.NewGetOffersByGameIdUseCase(reader)

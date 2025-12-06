@@ -17,22 +17,11 @@ func TestGetOffersByGameName(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
 		gameName := "Elden Ring"
 		gameID := uuid.New()
-		expectedOffers := []*offer.Offer{
-			{
-				ID:     uuid.New(),
-				GameID: gameID,
-				Store:  offer.StoreSteam,
-				URL:    "http://store.steampowered.com/app/1245620",
-			},
-			{
-				ID:     uuid.New(),
-				GameID: gameID,
-				Store:  offer.StoreNuuvem,
-				URL:    "http://nuuvem.com/item/elden-ring",
-			},
-		}
+		offer1, _ := offer.NewOffer(gameID, offer.StoreSteam, "http://store.steampowered.com/app/1245620")
+		offer2, _ := offer.NewOffer(gameID, offer.StoreNuuvem, "http://nuuvem.com/item/elden-ring")
+		expectedOffers := []*offer.Offer{offer1, offer2}
 
-		reader := new(mocks.MockReader)
+		reader := new(mocks.MockreaderByGameName)
 		reader.On("FindByGameName", ctx, gameName).Return(expectedOffers, nil)
 
 		uc := offer.NewGetOffersByGameNameUseCase(reader)
@@ -47,7 +36,7 @@ func TestGetOffersByGameName(t *testing.T) {
 		gameName := "Elden Ring"
 		expectedErr := assert.AnError
 
-		reader := new(mocks.MockReader)
+		reader := new(mocks.MockreaderByGameName)
 		reader.On("FindByGameName", ctx, gameName).Return(nil, expectedErr)
 
 		uc := offer.NewGetOffersByGameNameUseCase(reader)
@@ -63,7 +52,7 @@ func TestGetOffersByGameName(t *testing.T) {
 		gameName := "Game That Does Not Exist"
 		expectedOffers := []*offer.Offer{}
 
-		reader := new(mocks.MockReader)
+		reader := new(mocks.MockreaderByGameName)
 		reader.On("FindByGameName", ctx, gameName).Return(expectedOffers, nil)
 
 		uc := offer.NewGetOffersByGameNameUseCase(reader)
@@ -77,16 +66,10 @@ func TestGetOffersByGameName(t *testing.T) {
 	t.Run("case sensitivity", func(t *testing.T) {
 		gameName := "elden ring"
 		gameID := uuid.New()
-		expectedOffers := []*offer.Offer{
-			{
-				ID:     uuid.New(),
-				GameID: gameID,
-				Store:  offer.StoreSteam,
-				URL:    "http://store.steampowered.com/app/1245620",
-			},
-		}
+		offer1, _ := offer.NewOffer(gameID, offer.StoreSteam, "http://store.steampowered.com/app/1245620")
+		expectedOffers := []*offer.Offer{offer1}
 
-		reader := new(mocks.MockReader)
+		reader := new(mocks.MockreaderByGameName)
 		reader.On("FindByGameName", ctx, gameName).Return(expectedOffers, nil)
 
 		uc := offer.NewGetOffersByGameNameUseCase(reader)
