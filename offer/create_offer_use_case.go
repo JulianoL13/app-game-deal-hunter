@@ -2,14 +2,18 @@ package offer
 
 import "context"
 
-type CreateOfferUseCase struct {
-	writer Writer
+type writer interface {
+	Save(ctx context.Context, offer *Offer) error
 }
 
-func NewCreateOfferUseCase(writer Writer) *CreateOfferUseCase {
-	return &CreateOfferUseCase{writer: writer}
+type CreateOfferUseCase struct {
+	writer writer
+}
+
+func NewCreateOfferUseCase(w writer) *CreateOfferUseCase {
+	return &CreateOfferUseCase{writer: w}
 }
 
 func (uc *CreateOfferUseCase) Execute(ctx context.Context, offer *Offer) error {
-	return uc.writer.Insert(ctx, offer)
+	return uc.writer.Save(ctx, offer)
 }

@@ -2,12 +2,16 @@ package offer
 
 import "context"
 
-type GetOffersByGameNameUseCase struct {
-	reader Reader
+type readerByGameName interface {
+	FindByGameName(ctx context.Context, name string) ([]*Offer, error)
 }
 
-func NewGetOffersByGameNameUseCase(reader Reader) *GetOffersByGameNameUseCase {
-	return &GetOffersByGameNameUseCase{reader: reader}
+type GetOffersByGameNameUseCase struct {
+	reader readerByGameName
+}
+
+func NewGetOffersByGameNameUseCase(r readerByGameName) *GetOffersByGameNameUseCase {
+	return &GetOffersByGameNameUseCase{reader: r}
 }
 
 func (uc *GetOffersByGameNameUseCase) Execute(ctx context.Context, name string) ([]*Offer, error) {

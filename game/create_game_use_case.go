@@ -2,14 +2,18 @@ package game
 
 import "context"
 
-type CreateGameUseCase struct {
-	writer Writer
+type writer interface {
+	Save(ctx context.Context, game *Game) error
 }
 
-func NewCreateGameUseCase(writer Writer) *CreateGameUseCase {
-	return &CreateGameUseCase{writer: writer}
+type CreateGameUseCase struct {
+	writer writer
+}
+
+func NewCreateGameUseCase(w writer) *CreateGameUseCase {
+	return &CreateGameUseCase{writer: w}
 }
 
 func (uc *CreateGameUseCase) Execute(ctx context.Context, game *Game) error {
-	return uc.writer.Insert(ctx, game)
+	return uc.writer.Save(ctx, game)
 }
