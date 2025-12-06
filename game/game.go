@@ -23,7 +23,7 @@ type Game struct {
 	updatedAt   time.Time
 }
 
-func New(title, description, developer, publisher string, releaseDate time.Time) (*Game, error) {
+func NewGame(title, description, developer, publisher string, releaseDate time.Time) (*Game, error) {
 	if title == "" {
 		return nil, ErrEmptyTitle
 	}

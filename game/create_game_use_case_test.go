@@ -14,7 +14,7 @@ import (
 func TestCreateGame(t *testing.T) {
 	ctx := context.Background()
 	t.Run("success", func(t *testing.T) {
-		g, _ := game.New(
+		g, _ := game.NewGame(
 			"Test Game",
 			"A game for testing",
 			"Test Dev",
@@ -30,7 +30,7 @@ func TestCreateGame(t *testing.T) {
 		writer.AssertExpectations(t)
 	})
 	t.Run("fail", func(t *testing.T) {
-		g, _ := game.New(
+		g, _ := game.NewGame(
 			"Test Game",
 			"A game for testing",
 			"Test Dev",
