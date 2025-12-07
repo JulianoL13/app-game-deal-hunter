@@ -1,13 +1,13 @@
 with-expecter: true
 packages:
-  github.com/julianoL13/app-game-deal-hunter/game:
+  github.com/julianoL13/app-game-deal-hunter/internal/game:
     config:
       dir: "{{.InterfaceDir}}/mocks"
       outpkg: "mocks"
       mockname: "Mock{{.InterfaceName}}"
     interfaces:
       writer:
-  github.com/julianoL13/app-game-deal-hunter/offer:
+  github.com/julianoL13/app-game-deal-hunter/internal/offer:
     config:
       dir: "{{.InterfaceDir}}/mocks"
       outpkg: "mocks"

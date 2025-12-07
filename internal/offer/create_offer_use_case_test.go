@@ -7,8 +7,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/julianoL13/app-game-deal-hunter/offer"
-	"github.com/julianoL13/app-game-deal-hunter/offer/mocks"
+	"github.com/julianoL13/app-game-deal-hunter/internal/offer"
+	"github.com/julianoL13/app-game-deal-hunter/internal/offer/mocks"
 )
 
 func TestCreateOffer(t *testing.T) {

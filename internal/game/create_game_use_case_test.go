@@ -7,8 +7,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/julianoL13/app-game-deal-hunter/game"
-	"github.com/julianoL13/app-game-deal-hunter/game/mocks"
+	"github.com/julianoL13/app-game-deal-hunter/internal/game"
+	"github.com/julianoL13/app-game-deal-hunter/internal/game/mocks"
 )
 
 func TestCreateGame(t *testing.T) {
